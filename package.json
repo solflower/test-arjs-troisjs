@@ -7,7 +7,6 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "aframe": "^1.4.0",
     "bootstrap": "^5.2.3",
     "html2canvas": "^1.4.1",
     "three": "^0.134.0",
