@@ -1,7 +1,12 @@
 <template>
-  <div class="vertical-center">
+  <!-- <div class="vertical-center">
     <button id="capture">
       Capture
+    </button>
+  </div> -->
+  <div style='z-index: 1;' class="vertical-center">
+    <button id="capture" @click="capture()">
+        HIDE OBJECTS
     </button>
   </div>
   <a-scene
@@ -13,6 +18,33 @@
     <a-marker-camera preset="hiro"></a-marker-camera>
   </a-scene>
 </template>
+<script>
+export default {
+  name: "dta",
+  data() {
+    return {
+      
+    };
+  },
+  components: {
+    //
+  },
+  created() {
+    //
+  },
+
+  mounted() {
+    //
+  },
+
+  methods: {
+    capture(){
+      console.log("HI");
+    },
+  },
+};
+</script>
+
 <style>
 .vertical-center {
   position: absolute;
@@ -25,11 +57,3 @@
   z-index: 10000;
 }
 </style>
-<script setup>
-import html2canvas from "html2canvas";
-// html2canvas(document.querySelector("#capture").addEventListener("click", (e)=>{
-// 	console.log("HIDE OBJECTS")
-// })).then((canvas) => {
-//   document.body.appendChild(canvas);
-// });
-</script>
