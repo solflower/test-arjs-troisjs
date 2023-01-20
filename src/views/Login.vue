@@ -34,14 +34,14 @@
 
     <!-- forget password -->
     <div class="text-center mb-4">
-      <a href="#!" style="color: #767676">ลืมรหัสผ่าน?</a>
+      <a href="" style="color: #767676">ลืมรหัสผ่าน?</a>
     </div>
 
     <!-- if not a member then signup -->
     <div class="text-center" style="color: #767676">
       <p>
         ยังไม่ใช่สมาชิก?
-        <a href="#!" style="color: #767676; font-weight: bold">ลงทะเบียน</a>
+        <a href="/signup" style="color: #767676; font-weight: bold">ลงทะเบียน</a>
       </p>
     </div>
   </form>
@@ -53,7 +53,7 @@ export default {
       this.$router
         .push({ path: '/ar' })
         .then(() => { this.$router.go() })
-    }
+    },
   }
 }
 </script>
