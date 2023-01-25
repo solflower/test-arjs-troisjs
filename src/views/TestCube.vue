@@ -3,19 +3,19 @@
     <button id="capture" @click="capture()">HIDE OBJECTS</button>
   </div>
   <a-scene
-    arjs="sourceType: webcam; sourceWidth:960; sourceHeight:480; displayWidth: auto; displayHeight: auto; detectionMode: mono_and_matrix; matrixCodeType: 3x3"
+    arjs="debugUIEnabled: false; sourceType: webcam;  detectionMode: mono_and_matrix; matrixCodeType: 3x3 "
+    renderer="logarithmicDepthBuffer: true"
   >
-    <a-asset>
-      <a-asset-item id="monkey-ml" src="./assets/Suzanne.gltf"> </a-asset-item>
-    </a-asset>
+
     <!-- create your content here. just a box for now -->
     <a-marker id="m0" type="barcode" value="45">
       <a-box position="0 0 0" color="red" opacity="0.5"></a-box>
-      <a-entity id="drawHere0"></a-entity>
+      
     </a-marker>
 
     <a-marker id="test0" type="barcode" value="60" check-marker>
-      <a-box position="0 0 0" color="magenta" opacity="0.5"></a-box>
+      <!--<a-entity gltf-model="/models/crown/crown.gltf" ></a-entity>-->
+      
     </a-marker>
 
     <a-marker id="test1" type="barcode" value="58" check-marker>
@@ -23,33 +23,47 @@
     </a-marker>
 
     <a-marker type="barcode" value="8">
-      <a-box position="0 0 0" color="green" opacity="1"></a-box>
+      <a-box position="0 0 0" color="green" opacity="0.5"></a-box>
     </a-marker>
 
     <a-marker type="barcode" value="14">
-      <a-box position="0 0 0" color="white" opacity="1"></a-box>
+      <a-box position="0 0 0" color="white" opacity="0.5"></a-box>
     </a-marker>
-    <a-entity gesture-handler id="mk1" gltf-model="#monkey-ml"></a-entity>
-    <a-entity gesture-handler id="mk2" gltf-model="#monkey-ml"></a-entity>
+    
+    <a-entity gesture-handler id="mk1" >
+      <!-- <Renderer ref="renderer" resize="window">
+        <Camera :position="{ z: 100 }" />
+        <Scene ref="scene">
+          <GltfModel src="/models/crown/crown.gltf" />
+        </Scene>
+
+      </Renderer> -->
+    </a-entity>
+    <a-entity gltf-model="/models/crown/crown.gltf" position="0 0 -10"></a-entity>
+
+    <a-entity gesture-handler id="mk2" ></a-entity>
     <!-- define a camera which will move according to the marker position -->
     <a-entity camera></a-entity>
   </a-scene>
 </template>
 <script>
+import { GltfModel } from 'troisjs';
 export default {
   name: "dta",
   data() {
     return {};
   },
   components: {
-    //
+    GltfModel
   },
   created() {
     //
   },
 
-  mounted() {
-    //
+  setup() {
+    function onReady(e){
+      console.log('model ready', e)
+    } 
   },
 
   methods: {
@@ -78,6 +92,7 @@ AFRAME.registerComponent("check-marker", {
 AFRAME.registerComponent("draw-line", {
   init: function () {
     this.modelComp = document.querySelector("#mk1").object3D;
+    console.log("init")
 
     // to store the position of the the m0rkers
     this.p0 = new THREE.Vector3();
@@ -127,8 +142,8 @@ AFRAME.registerComponent("draw-line", {
         this.modelComp.position.z = (this.p0.z + this.p1.z) / 2;
       }
 
-      console.log("x: " + this.p0.x + " " + this.p1.x);
-      console.log("y: " + this.p0.y + " " + this.p1.y);
+      //console.log("x: " + this.p0.x + " " + this.p1.x);
+      //console.log("y: " + this.p0.y + " " + this.p1.y);
 
       // difference between 2 marker on y axis
       ydiff = this.p0.y - this.p1.y;
