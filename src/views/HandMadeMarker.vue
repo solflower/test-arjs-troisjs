@@ -22,7 +22,7 @@
             id="animated-marker"
             type="pattern"
             preset="custom"
-            url="/assets/marker.patt"
+            url="/assets/pattern-80thver2.patt"
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
