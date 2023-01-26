@@ -29,7 +29,15 @@
     </div>
 
     <div class="d-grid gap-2 m-3">
-      <button type="submit" class="submit-btn mb-2" @click="redirect">โหมดไม่ระบุตัวตน</button>
+      <button type="submit" class="submit-btn mb-2" @click="redirect">Marker Tracking</button>
+    </div>
+
+    <div class="d-grid gap-2 m-3">
+      <button type="submit" class="submit-btn mb-2" @click="redirectImg">nft Image Tracking</button>
+    </div>
+
+    <div class="d-grid gap-2 m-3">
+      <button type="submit" class="submit-btn mb-2" @click="redirectCusImg">Custom Image Tracking</button>
     </div>
 
     <!-- forget password -->
@@ -52,6 +60,16 @@ export default {
     redirect() {
       this.$router
         .push({ path: '/ar' })
+        .then(() => { this.$router.go() })
+    },
+    redirectImg() {
+      this.$router
+        .push({ path: '/nftimgtrack' })
+        .then(() => { this.$router.go() })
+    },
+    redirectCusImg() {
+      this.$router
+        .push({ path: '/handmadeimgtrack' })
         .then(() => { this.$router.go() })
     },
   }
