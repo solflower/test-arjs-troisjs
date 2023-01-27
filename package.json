@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "webpack",
-    "serve": "vite preview"
+    "build": "vite build",
+    "serve": "vite preview",
+    "preview": "vite preview"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
