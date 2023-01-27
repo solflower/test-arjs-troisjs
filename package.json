@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "deploy.sh": "^2.0.0",
     "html2canvas": "^1.4.1",
     "three": "^0.134.0",
     "troisjs": "^0.3.3",
