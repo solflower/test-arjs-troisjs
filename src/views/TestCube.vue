@@ -1,4 +1,5 @@
 <template>
+  <!-- ใส่ z-index ใน style ให้ปุ่ม Render เหนือกล้อง -->
   <div style="z-index: 1" class="vertical-center">
     <button id="capture" @click="capture()">HIDE OBJECTS</button>
   </div>
@@ -67,6 +68,7 @@ export default {
   },
 
   methods: {
+    //ใส่ Method ชื่อเดียวกับที่ @click ไว้
     capture() {
       console.log("HI");
     },
