@@ -11,18 +11,12 @@
             id="scene"
             gesture-detector
         >
-        <a-assets>
-            <a-asset-item
-                id="animated-asset"
-                src="/assets/griffon.gltf"
-            ></a-asset-item>
-        </a-assets>
     
         <a-marker
             id="animated-marker"
             type="pattern"
             preset="custom"
-            url="/assets/pattern-80thver2.patt"
+            url="/assets/80logo_v2/pattern-80ver3.patt"
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
