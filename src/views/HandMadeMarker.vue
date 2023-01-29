@@ -38,11 +38,60 @@
   </template>
 
 <script>
-export default{
-    methods: {
-        capture() {
-            console.log("HI");
+let shareData;
+export default {
+  methods: {
+        dataURLtoFile(dataurl) {
+            var bstr = atob(dataurl.split(',')[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return u8arr;
         },
-    }
-}
+        async capture() {
+            // document.querySelector("video").pause();
+
+            const video = document.getElementsByTagName("video")[0];
+            const canvas = document.createElement("canvas");
+
+            var width = video.videoWidth, height = video.videoHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            // วาด video กับโมเดล AR ที่ขึ้นบนจอ ลงบน canvas เปล่าๆ
+            var screenshot;
+            canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+            var imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
+            canvas.getContext('2d').drawImage(imgData, 0, 0, width, height);
+            screenshot = canvas.toDataURL('image/png');
+
+            const blob = await (await fetch(screenshot)).blob();
+            const filesArray = [
+                new File(
+                    [blob],
+                    'bla.png',
+                    {
+                        type: blob.type,
+                        lastModified: new Date().getTime()
+                    }
+                )
+            ];
+            const shareData = {
+                files: filesArray,
+            };
+
+            //const byteArray = this.dataURLtoFile(screenshot);
+            //shareData = { files: [new File([blob], "bla.png", { type: "/image/png" })] }
+            if (navigator.canShare && navigator.canShare(shareData)) {
+                try {
+                    console.log("yes")
+                    navigator.share(shareData)
+
+                } catch (err) {
+                    console.error(err.name + " " + err.message)
+                }
+            } else console.warn('Sharing not supported', shareData)
+        },
+}}
+
 </script>
