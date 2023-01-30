@@ -17,7 +17,7 @@
             id="animated-marker"
             type="pattern"
             preset="custom"
-            url="/assets/80logo_v5/finallogo_v1.patt"
+            url="/assets/80logo_v5/finallogo_v2.patt"
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
