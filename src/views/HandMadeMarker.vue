@@ -1,7 +1,7 @@
 <template>
     <body style="margin: 0; overflow: hidden;">
         <div style="z-index: 1" class="mb-5 fixed-bottom d-flex justify-content-center">
-            <button class="px-3 pb-2 h1" id="capture2" @click="shareFile()">capture</button>
+            <button class="px-3 pb-2 h1" id="share_btn" @click="shareFile()">share</button>
             <button class="px-3 pb-2 h1" id="save_btn" @click="saveFile()">save</button>
         </div>
         <a-scene
@@ -17,7 +17,7 @@
             id="animated-marker"
             type="pattern"
             preset="custom"
-            url="/assets/80logo_v2/pattern-80ver3.patt"
+            url="/assets/80logo_v5/finallogo_v1.patt"
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
