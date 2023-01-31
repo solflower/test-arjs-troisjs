@@ -1,17 +1,12 @@
 <template>
     <a-scene
         vr-mode-ui="enabled: false;"
-            loading-screen="enabled: false;"
-            renderer="logarithmicDepthBuffer: true;"
-            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-            id="scene"
-            gesture-detector
+        loading-screen="enabled: false;"
+        renderer="logarithmicDepthBuffer: true;"
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+        id="scene"
+        gesture-detector
     >
-        <!-- <a-nft
-            samplehandler 
-            type='nft' url="../resources/ramen-1000px"
-            smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"
-        > -->
         <a-nft
             samplehandler 
             type='nft' url="/nft/default-marker"
@@ -42,3 +37,8 @@ AFRAME.registerComponent('samplehandler', {
     }
 });
 </script>
+<style>
+a-scene{
+  height: 100vh;
+}
+</style>

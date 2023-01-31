@@ -1,76 +1,117 @@
 <template>
-  <!-- ใส่ z-index ใน style ให้ปุ่ม Render เหนือกล้อง -->
-  <div style="z-index: 1" class="vertical-center">
-    <button id="capture" @click="capture()">HIDE OBJECTS</button>
-  </div>
-  <a-scene
-    arjs="debugUIEnabled: false; sourceType: webcam;  detectionMode: mono_and_matrix; matrixCodeType: 3x3 "
-    renderer="logarithmicDepthBuffer: true"
-  >
+    <!-- ใส่ z-index ใน style ให้ปุ่ม Render เหนือกล้อง -->
+    <div class="container" id="navigation" hidden>
+      <canvas id="preview" style="z-index: 20"></canvas>
+      <menu id="controls">Hi</menu>
+    </div>
+    <div style="z-index: 1" class="vertical-center">
+      <button id="capture" @click="capture()">HIDE OBJECTS</button>
+    </div>
+    <a-scene
+      arjs="debugUIEnabled: false; sourceType: webcam;  detectionMode: mono_and_matrix; matrixCodeType: 3x3 "
+      renderer="logarithmicDepthBuffer: true;"
+      device-orientation-permission-ui="enabled: false"
+      vr-mode-ui="enabled: false;"
+      embedded
+    >
+      <!-- create your content here. just a box for now -->
+      <a-marker id="m0" type="barcode" value="45">
+        <a-box position="0 0 0" color="red" opacity="0.5"></a-box>
+      </a-marker>
 
-    <!-- create your content here. just a box for now -->
-    <a-marker id="m0" type="barcode" value="45">
-      <a-box position="0 0 0" color="red" opacity="0.5"></a-box>
-      
-    </a-marker>
+      <a-marker id="test0" type="barcode" value="60" check-marker>
+        <!--<a-entity gltf-model="/models/crown/crown.gltf" ></a-entity>-->
+        <a-box position="0 0 0" color="purple" opacity="0.5"></a-box>
+      </a-marker>
 
-    <a-marker id="test0" type="barcode" value="60" check-marker>
-      <!--<a-entity gltf-model="/models/crown/crown.gltf" ></a-entity>-->
-      <a-box position="0 0 0" color="purple" opacity="0.5"></a-box>
-    </a-marker>
+      <a-marker id="test1" type="barcode" value="58" check-marker>
+        <a-box position="0 0 0" color="yellow" opacity="0.5"></a-box>
+      </a-marker>
 
-    <a-marker id="test1" type="barcode" value="58" check-marker>
-      <a-box position="0 0 0" color="yellow" opacity="0.5"></a-box>
-    </a-marker>
+      <a-marker type="barcode" value="8">
+        <a-box position="0 0 0" color="green" opacity="0.5"></a-box>
+      </a-marker>
 
-    <a-marker type="barcode" value="8">
-      <a-box position="0 0 0" color="green" opacity="0.5"></a-box>
-    </a-marker>
+      <a-marker type="barcode" value="14">
+        <a-box position="0 0 0" color="white" opacity="0.5"></a-box>
+      </a-marker>
 
-    <a-marker type="barcode" value="14">
-      <a-box position="0 0 0" color="white" opacity="0.5"></a-box>
-    </a-marker>
-    
-    <a-entity gesture-handler id="mk1" >
-      <!-- <Renderer ref="renderer" resize="window">
+      <a-entity gesture-handler id="mk1">
+        <!-- <Renderer ref="renderer" resize="window">
         <Camera :position="{ z: 100 }" />
         <Scene ref="scene">
           <GltfModel src="/models/crown/crown.gltf" />
         </Scene>
 
       </Renderer> -->
-    </a-entity>
-    <a-entity draw-line></a-entity>
+      </a-entity>
+      <a-entity draw-line></a-entity>
 
-    <a-entity gesture-handler id="mk2" gltf-model="/models/crown/crown.gltf"></a-entity>
-    <!-- define a camera which will move according to the marker position -->
-    <a-entity camera></a-entity>
-  </a-scene>
+      <a-entity
+        gesture-handler
+        id="mk2"
+        gltf-model="/models/crown/crown.gltf"
+      ></a-entity>
+      <!-- define a camera which will move according to the marker position -->
+    </a-scene>
 </template>
 <script>
-import { GltfModel } from 'troisjs';
+import { GltfModel } from "troisjs";
 export default {
   name: "dta",
   data() {
     return {};
   },
   components: {
-    GltfModel
+    GltfModel,
   },
   created() {
     //
   },
 
   setup() {
-    function onReady(e){
-      console.log('model ready', e)
-    } 
+    function onReady(e) {
+      console.log("model ready", e);
+    }
   },
 
   methods: {
     //ใส่ Method ชื่อเดียวกับที่ @click ไว้
     capture() {
-      console.log("HI");
+      document.querySelector("video").pause();
+
+      const video = document.getElementsByTagName("video")[0];
+      const canvas = document.createElement("canvas");
+      const preview = document.getElementById("preview");
+      const navigation = document.getElementById("navigation");
+
+      var width = video.videoWidth,
+        height = video.videoHeight;
+      canvas.width = width;
+      canvas.height = height;
+      preview.width = width;
+      preview.height = height;
+
+      // วาด video กับโมเดล AR ที่ขึ้นบนจอ ลงบน canvas เปล่าๆ
+      var screenshot;
+      canvas.getContext("2d").drawImage(video, 0, 0, width, height);
+      var imgData = document
+        .querySelector("a-scene")
+        .components.screenshot.getCanvas("perspective");
+      canvas.getContext("2d").drawImage(imgData, 0, 0, width, height);
+      preview.getContext("2d").drawImage(imgData, width, height);
+      navigation.removeAttribute("hidden")
+      screenshot = canvas.toDataURL("image/png");
+
+      // โหลดไฟล์ภาพ
+      // var link = document.createElement("a");
+      // link.download = "screenshot.png";
+      // link.href = screenshot;
+      // link.click();
+
+      console.log("Capture Complete !");
+
+      document.querySelector("video").play();
     },
   },
 };
@@ -94,7 +135,7 @@ AFRAME.registerComponent("check-marker", {
 AFRAME.registerComponent("draw-line", {
   init: function () {
     this.modelComp = document.querySelector("#mk2").object3D;
-    console.log("init")
+    console.log("init");
 
     // to store the position of the the m0rkers
     this.p0 = new THREE.Vector3();
@@ -141,7 +182,9 @@ AFRAME.registerComponent("draw-line", {
       if (xdiff <= 0) {
         this.modelComp.rotation.z = THREE.MathUtils.degToRad(ydiff * -11.538);
       } else if (xdiff > 0) {
-        this.modelComp.rotation.z = THREE.MathUtils.degToRad(180 - ydiff * -11.538);
+        this.modelComp.rotation.z = THREE.MathUtils.degToRad(
+          180 - ydiff * -11.538
+        );
       }
 
       this.modelComp.visible = true;

@@ -61,6 +61,7 @@ export default {
       this.$router
         .push({ path: '/ar' })
         .then(() => { this.$router.go() })
+      window.location.reload();
     },
     redirectImg() {
       this.$router
@@ -71,6 +72,7 @@ export default {
       this.$router
         .push({ path: '/handmadeimgtrack' })
         .then(() => { this.$router.go() })
+      window.location.reload();
     },
   }
 }
